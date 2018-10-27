@@ -2,7 +2,7 @@ package com.agharibi.oauth2;
 
 import com.agharibi.oauth2.spring.AuthorizationServerConfiguration;
 import com.agharibi.oauth2.spring.ResourceServerConfiguration;
-import com.agharibi.oauth2.spring.WebMvcConfiguration;
+import com.agharibi.oauth2.spring.SecurityConfig;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
@@ -21,6 +21,6 @@ public class Oauth2Application {
 				Oauth2Application.class,
 				AuthorizationServerConfiguration.class,
 				ResourceServerConfiguration.class,
-				WebMvcConfiguration.class}, args);
+				SecurityConfig.class}, args);
 	}
 }
