@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 
 
-@Component
+@Component("userDetailsService")
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired

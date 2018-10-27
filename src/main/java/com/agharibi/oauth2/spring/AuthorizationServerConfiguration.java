@@ -5,6 +5,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
@@ -27,14 +29,20 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
         return new InMemoryTokenStore();
     }
 
+    @Bean
+    public PasswordEncoder encoder() {
+        return new BCryptPasswordEncoder(12);
+    }
+
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         clients
                 .inMemory()
                 .withClient("live-test")
-                .secret("bGl2ZS10ZXN0")
-                .authorizedGrantTypes("password")
+                .secret(encoder().encode("bGl2ZS10ZXN0"))
+                .authorizedGrantTypes("password")  // password oauth2 flow
                 .scopes("um-webapp")
+                .autoApprove("um-webapp")
                 .accessTokenValiditySeconds(3600);
     }
 
